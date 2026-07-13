@@ -1,0 +1,1154 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>کهکشان کلمات</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" media="print" onload="this.media='all'">
+<style>
+  :root{
+    --neon-pink:#ff2fd0;
+    --neon-blue:#28e3ff;
+    --neon-purple:#9b30ff;
+    --neon-green:#39ff8a;
+    --neon-yellow:#fff84d;
+    --neon-orange:#ff8c2f;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{
+    margin:0; padding:0; width:100%; height:100%;
+    font-family:'Vazirmatn', Tahoma, sans-serif;
+    background:#05021a;
+    overflow:hidden;
+    color:#fff;
+    user-select:none;
+  }
+  #starfield{
+    position:fixed; inset:0; z-index:0;
+    background:
+      radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+      radial-gradient(2px 2px at 60px 120px, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 100px 60px, #ffe, transparent),
+      radial-gradient(2px 2px at 150px 160px, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 200px 30px, #fff, transparent),
+      radial-gradient(2px 2px at 250px 200px, #ffe, transparent),
+      radial-gradient(1.5px 1.5px at 300px 90px, #fff, transparent),
+      radial-gradient(2px 2px at 350px 150px, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 20px 220px, #fff, transparent),
+      radial-gradient(2px 2px at 380px 40px, #fff, transparent);
+    background-repeat:repeat;
+    background-size:400px 250px;
+    animation:starMove 60s linear infinite;
+    background-color:#05021a;
+  }
+  #starfield::after{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(155,48,255,0.25), transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(40,227,255,0.25), transparent 40%),
+      radial-gradient(circle at 50% 90%, rgba(255,47,208,0.18), transparent 45%);
+  }
+  @keyframes starMove{
+    from{background-position:0 0;}
+    to{background-position:-400px 250px;}
+  }
+  .screen{
+    position:relative; z-index:2;
+    width:100%; height:100%;
+    min-height:100vh;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding:14px 12px 24px;
+    overflow-y:auto;
+  }
+  .screen.active{display:flex;}
+
+  /* Neon 3D box base */
+  .neon-box{
+    position:relative;
+    border-radius:18px;
+    background:linear-gradient(160deg, rgba(30,10,60,0.9), rgba(10,5,35,0.95));
+    border:2px solid var(--neon-blue);
+    box-shadow:
+      0 0 8px var(--neon-blue),
+      0 0 18px rgba(40,227,255,0.6),
+      inset 0 0 14px rgba(40,227,255,0.35),
+      0 8px 0 rgba(0,0,0,0.35),
+      0 14px 22px rgba(0,0,0,0.5);
+    transform:perspective(600px) rotateX(2deg);
+  }
+  .neon-box.pink{
+    border-color:var(--neon-pink);
+    box-shadow:
+      0 0 8px var(--neon-pink),
+      0 0 18px rgba(255,47,208,0.6),
+      inset 0 0 14px rgba(255,47,208,0.35),
+      0 8px 0 rgba(0,0,0,0.35),
+      0 14px 22px rgba(0,0,0,0.5);
+  }
+  .neon-box.purple{
+    border-color:var(--neon-purple);
+    box-shadow:
+      0 0 8px var(--neon-purple),
+      0 0 18px rgba(155,48,255,0.6),
+      inset 0 0 14px rgba(155,48,255,0.35),
+      0 8px 0 rgba(0,0,0,0.35),
+      0 14px 22px rgba(0,0,0,0.5);
+  }
+  .neon-box.green{
+    border-color:var(--neon-green);
+    box-shadow:
+      0 0 8px var(--neon-green),
+      0 0 18px rgba(57,255,138,0.6),
+      inset 0 0 14px rgba(57,255,138,0.35),
+      0 8px 0 rgba(0,0,0,0.35),
+      0 14px 22px rgba(0,0,0,0.5);
+  }
+
+  /* ===== SCREEN 1 - TITLE ===== */
+  .astro-deco{
+    position:absolute; font-size:30px; opacity:0.85; filter:drop-shadow(0 0 6px #fff);
+    animation:floaty 5s ease-in-out infinite;
+  }
+  @keyframes floaty{
+    0%,100%{transform:translateY(0) rotate(0deg);}
+    50%{transform:translateY(-14px) rotate(8deg);}
+  }
+  .title-box{
+    margin-top:18px;
+    width:92%; max-width:480px;
+    padding:18px 14px;
+    text-align:center;
+  }
+  .title-box h1{
+    margin:0;
+    font-size:clamp(26px,7vw,38px);
+    font-weight:900;
+    color:#fff;
+    letter-spacing:1px;
+    text-shadow:
+      0 0 6px #fff,
+      0 0 14px var(--neon-blue),
+      0 0 26px var(--neon-purple),
+      0 0 40px var(--neon-pink);
+    animation:pulseTitle 2.2s ease-in-out infinite;
+  }
+  @keyframes pulseTitle{
+    0%,100%{text-shadow:0 0 6px #fff,0 0 14px var(--neon-blue),0 0 26px var(--neon-purple),0 0 40px var(--neon-pink);}
+    50%{text-shadow:0 0 10px #fff,0 0 22px var(--neon-blue),0 0 36px var(--neon-purple),0 0 55px var(--neon-pink);}
+  }
+  .rocket-row{
+    font-size:34px; margin-top:6px;
+    filter:drop-shadow(0 0 8px var(--neon-yellow));
+  }
+  .name-box{
+    margin-top:28px;
+    width:88%; max-width:420px;
+    padding:18px 16px;
+    text-align:center;
+  }
+  .name-box p{
+    margin:0 0 10px;
+    font-size:clamp(16px,4.5vw,20px);
+    font-weight:700;
+    color:var(--neon-yellow);
+    text-shadow:0 0 8px var(--neon-yellow);
+  }
+  #playerNameInput{
+    width:90%;
+    padding:10px 14px;
+    border-radius:12px;
+    border:2px solid var(--neon-green);
+    background:rgba(0,0,0,0.45);
+    color:#fff;
+    font-family:'Vazirmatn',sans-serif;
+    font-size:18px;
+    text-align:center;
+    outline:none;
+    box-shadow:inset 0 0 10px rgba(57,255,138,0.4);
+  }
+  #playerNameInput::placeholder{color:rgba(255,255,255,0.5);}
+  .start-btn{
+    margin-top:18px;
+    padding:12px 34px;
+    border-radius:30px;
+    border:2px solid var(--neon-pink);
+    background:linear-gradient(160deg, rgba(255,47,208,0.25), rgba(155,48,255,0.25));
+    color:#fff;
+    font-family:'Vazirmatn',sans-serif;
+    font-weight:900;
+    font-size:18px;
+    cursor:pointer;
+    box-shadow:0 0 10px var(--neon-pink), 0 0 24px rgba(255,47,208,0.6);
+    transition:transform 0.15s;
+  }
+  .start-btn:active{transform:scale(0.94);}
+  .start-btn:disabled{opacity:0.4; cursor:not-allowed;}
+  .footer-box{
+    margin-top:30px;
+    margin-bottom:6px;
+    width:90%; max-width:440px;
+    padding:10px 12px;
+    text-align:center;
+  }
+  .footer-box p{
+    margin:0;
+    font-size:13px;
+    font-weight:700;
+    color:var(--neon-blue);
+    text-shadow:0 0 6px var(--neon-blue);
+  }
+
+  /* ===== SCREEN 2 - WHEEL ===== */
+  .wheel-title{
+    margin-top:10px;
+    font-size:clamp(20px,5.5vw,28px);
+    font-weight:900;
+    color:#fff;
+    text-shadow:0 0 8px var(--neon-green), 0 0 20px var(--neon-blue);
+    text-align:center;
+  }
+  .wheel-wrap{
+    position:relative;
+    width:min(78vw,320px);
+    height:min(78vw,320px);
+    margin:24px auto 10px;
+  }
+  .wheel-pointer{
+    position:absolute;
+    top:-14px; left:50%;
+    transform:translateX(-50%);
+    font-size:36px;
+    z-index:5;
+    filter:drop-shadow(0 0 8px var(--neon-yellow));
+  }
+  #wheelCanvas{
+    width:100%; height:100%;
+    border-radius:50%;
+    filter:drop-shadow(0 0 16px var(--neon-purple)) drop-shadow(0 0 30px rgba(40,227,255,0.5));
+    transition:transform 4.2s cubic-bezier(0.17,0.67,0.21,1);
+  }
+  .wheel-hub{
+    position:absolute; top:50%; left:50%;
+    width:18%; height:18%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:radial-gradient(circle, #fff, var(--neon-yellow) 60%, var(--neon-orange));
+    box-shadow:0 0 16px var(--neon-yellow), 0 0 30px var(--neon-orange);
+    z-index:4;
+  }
+  .spin-btn{
+    margin-top:14px;
+    padding:14px 40px;
+    border-radius:30px;
+    border:2px solid var(--neon-green);
+    background:linear-gradient(160deg, rgba(57,255,138,0.25), rgba(40,227,255,0.25));
+    color:#fff;
+    font-family:'Vazirmatn',sans-serif;
+    font-weight:900;
+    font-size:20px;
+    cursor:pointer;
+    box-shadow:0 0 10px var(--neon-green), 0 0 24px rgba(57,255,138,0.6);
+  }
+  .spin-btn:active{transform:scale(0.95);}
+  .spin-btn:disabled{opacity:0.45; cursor:not-allowed;}
+  .wheel-score{
+    margin-top:16px;
+    font-size:18px;
+    font-weight:700;
+    color:var(--neon-yellow);
+    text-shadow:0 0 8px var(--neon-yellow);
+    min-height:26px;
+  }
+  .next-btn{
+    margin-top:10px;
+    padding:10px 30px;
+    border-radius:24px;
+    border:2px solid var(--neon-pink);
+    background:linear-gradient(160deg, rgba(255,47,208,0.25), rgba(155,48,255,0.25));
+    color:#fff;
+    font-family:'Vazirmatn',sans-serif;
+    font-weight:900;
+    font-size:16px;
+    cursor:pointer;
+    display:none;
+    box-shadow:0 0 10px var(--neon-pink);
+  }
+
+  /* ===== SCREEN 3 - QUESTIONS (Amirza style) ===== */
+  .topbar{
+    width:100%; max-width:520px;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:8px 14px;
+    margin-top:4px;
+  }
+  .score-pill{
+    padding:6px 16px;
+    border-radius:20px;
+    border:2px solid var(--neon-yellow);
+    background:rgba(20,10,40,0.85);
+    font-weight:900;
+    font-size:15px;
+    color:var(--neon-yellow);
+    box-shadow:0 0 10px var(--neon-yellow);
+    white-space:nowrap;
+  }
+  .progress-pill{
+    padding:6px 16px;
+    border-radius:20px;
+    border:2px solid var(--neon-blue);
+    background:rgba(20,10,40,0.85);
+    font-weight:700;
+    font-size:14px;
+    color:var(--neon-blue);
+    box-shadow:0 0 10px var(--neon-blue);
+    white-space:nowrap;
+  }
+  .question-box{
+    width:92%; max-width:520px;
+    min-height:78px;
+    margin-top:14px;
+    padding:16px 18px;
+    text-align:center;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .question-box p{
+    margin:0;
+    font-size:clamp(15px,4.2vw,19px);
+    font-weight:700;
+    line-height:1.6;
+    color:#fff;
+  }
+
+  /* The fixed-layout play area, like Amirza: top blanks row, bottom letter ring */
+  .play-area{
+    width:100%; max-width:520px;
+    margin-top:18px;
+    display:flex; flex-direction:column; align-items:center;
+    flex:1;
+  }
+  .answer-slots{
+    display:flex; justify-content:center; align-items:center;
+    gap:6px; flex-wrap:wrap;
+    min-height:64px;
+    width:92%;
+    margin-bottom:8px;
+  }
+  .slot{
+    width:40px; height:48px;
+    border-radius:10px;
+    border:2px solid var(--neon-green);
+    background:rgba(10,5,30,0.7);
+    box-shadow:0 0 8px var(--neon-green), inset 0 0 8px rgba(57,255,138,0.3);
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; font-weight:900;
+    color:var(--neon-green);
+    text-shadow:0 0 6px var(--neon-green);
+  }
+  .slot.filled{
+    background:rgba(57,255,138,0.18);
+  }
+
+  /* Fixed-size circular ring container so layout never shifts */
+  .ring-stage{
+    position:relative;
+    width:min(80vw,300px);
+    height:min(80vw,300px);
+    margin:10px auto 6px;
+    flex-shrink:0;
+  }
+  .ring-disc{
+    position:absolute; inset:0;
+    border-radius:50%;
+    background:
+      radial-gradient(circle at 50% 50%, rgba(40,227,255,0.12), rgba(10,5,30,0.92) 70%);
+    border:3px solid var(--neon-blue);
+    box-shadow:
+      0 0 16px var(--neon-blue),
+      0 0 34px rgba(40,227,255,0.45),
+      inset 0 0 26px rgba(40,227,255,0.3);
+    animation:ringSpin 18s linear infinite;
+  }
+  @keyframes ringSpin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+  }
+  .ring-disc::before{
+    content:"";
+    position:absolute; inset:8%;
+    border-radius:50%;
+    border:1px dashed rgba(40,227,255,0.4);
+  }
+  .letters-layer{
+    position:absolute; inset:0;
+  }
+  .letter-btn{
+    position:absolute;
+    width:46px; height:46px;
+    margin-left:-23px; margin-top:-23px;
+    border-radius:50%;
+    border:2px solid var(--neon-pink);
+    background:radial-gradient(circle at 35% 30%, rgba(255,47,208,0.35), rgba(20,5,35,0.95));
+    color:#fff;
+    font-family:'Vazirmatn',sans-serif;
+    font-size:20px; font-weight:900;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 0 10px var(--neon-pink), 0 0 18px rgba(255,47,208,0.5);
+    cursor:pointer;
+    animation:counterSpin 18s linear infinite;
+    transition:opacity 0.2s, transform 0.15s;
+  }
+  .letter-btn:active{transform:scale(0.9) !important;}
+  .letter-btn.used{
+    opacity:0;
+    pointer-events:none;
+  }
+  @keyframes counterSpin{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(-360deg);}
+  }
+  .ring-center-icon{
+    position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    font-size:30px;
+    filter:drop-shadow(0 0 10px var(--neon-yellow));
+    z-index:2;
+    pointer-events:none;
+  }
+
+  .controls-row{
+    width:92%; max-width:520px;
+    display:flex; justify-content:space-between;
+    margin-top:10px;
+    padding:0 4px;
+  }
+  .ctrl-btn{
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    padding:8px 14px;
+    border-radius:14px;
+    border:2px solid var(--neon-orange);
+    background:rgba(20,10,40,0.85);
+    color:var(--neon-orange);
+    font-weight:900;
+    font-size:13px;
+    cursor:pointer;
+    box-shadow:0 0 8px var(--neon-orange);
+  }
+  .ctrl-btn .icon{font-size:20px;}
+  .ctrl-btn.undo{
+    border-color:var(--neon-blue);
+    color:var(--neon-blue);
+    box-shadow:0 0 8px var(--neon-blue);
+  }
+  .ctrl-btn:active{transform:scale(0.93);}
+  .ctrl-btn:disabled{opacity:0.4; cursor:not-allowed;}
+
+  .feedback-overlay{
+    position:fixed; inset:0; z-index:30;
+    display:none;
+    align-items:center; justify-content:center;
+    pointer-events:none;
+  }
+  .feedback-msg{
+    font-size:clamp(28px,9vw,48px);
+    font-weight:900;
+    padding:18px 36px;
+    border-radius:20px;
+    animation:popMsg 0.9s ease;
+  }
+  .feedback-msg.good{
+    color:var(--neon-green);
+    background:rgba(5,20,10,0.85);
+    border:3px solid var(--neon-green);
+    box-shadow:0 0 30px var(--neon-green);
+  }
+  .feedback-msg.bad{
+    color:#ff4d4d;
+    background:rgba(25,5,5,0.85);
+    border:3px solid #ff4d4d;
+    box-shadow:0 0 30px #ff4d4d;
+  }
+  @keyframes popMsg{
+    0%{transform:scale(0.4); opacity:0;}
+    25%{transform:scale(1.15); opacity:1;}
+    40%{transform:scale(1);}
+    85%{transform:scale(1); opacity:1;}
+    100%{transform:scale(0.9); opacity:0;}
+  }
+  .confetti-piece{
+    position:fixed; top:-20px; z-index:29;
+    width:10px; height:10px; opacity:0.95;
+    animation:fall linear forwards;
+  }
+  @keyframes fall{
+    to{transform:translateY(110vh) rotate(540deg); opacity:0.2;}
+  }
+  .shake{
+    animation:shakeAnim 0.45s;
+  }
+  @keyframes shakeAnim{
+    0%,100%{transform:translateX(0);}
+    20%{transform:translateX(-10px);}
+    40%{transform:translateX(10px);}
+    60%{transform:translateX(-8px);}
+    80%{transform:translateX(8px);}
+  }
+
+  /* ===== SCREEN 4 - END ===== */
+  .end-box{
+    margin-top:60px;
+    width:92%; max-width:440px;
+    padding:26px 18px;
+    text-align:center;
+  }
+  .end-box h2{
+    margin:0 0 14px;
+    font-size:clamp(20px,5.5vw,26px);
+    color:var(--neon-yellow);
+    text-shadow:0 0 10px var(--neon-yellow);
+  }
+  .end-stats{
+    display:flex; justify-content:center; gap:16px;
+    margin:16px 0;
+    flex-wrap:wrap;
+  }
+  .stat-chip{
+    padding:10px 18px;
+    border-radius:14px;
+    border:2px solid var(--neon-green);
+    background:rgba(10,5,30,0.7);
+    font-weight:900;
+    color:var(--neon-green);
+    box-shadow:0 0 10px var(--neon-green);
+  }
+  .end-msg{
+    margin-top:18px;
+    font-size:16px;
+    font-weight:700;
+    line-height:1.8;
+    color:#fff;
+  }
+  .end-msg .pname{
+    color:var(--neon-pink);
+    text-shadow:0 0 8px var(--neon-pink);
+  }
+  .replay-btn{
+    margin-top:22px;
+    padding:12px 34px;
+    border-radius:30px;
+    border:2px solid var(--neon-purple);
+    background:linear-gradient(160deg, rgba(155,48,255,0.3), rgba(255,47,208,0.2));
+    color:#fff;
+    font-weight:900;
+    font-size:17px;
+    cursor:pointer;
+    box-shadow:0 0 12px var(--neon-purple);
+  }
+  .end-stars{
+    font-size:32px;
+    margin-top:6px;
+    filter:drop-shadow(0 0 8px var(--neon-yellow));
+  }
+</style>
+</head>
+<body>
+
+<div id="starfield"></div>
+
+<!-- Floating astronaut decorations (decorative only, emoji-based, no external images) -->
+<div class="astro-deco" style="top:8%; left:6%; animation-delay:0s;">🧑‍🚀</div>
+<div class="astro-deco" style="top:14%; right:7%; animation-delay:1.2s;">🪐</div>
+<div class="astro-deco" style="top:60%; left:4%; animation-delay:2s;">⭐</div>
+<div class="astro-deco" style="top:70%; right:6%; animation-delay:0.6s;">☄️</div>
+
+<!-- ===================== SCREEN 1: TITLE ===================== -->
+<section id="screen1" class="screen active">
+  <div class="neon-box title-box">
+    <div class="rocket-row">🚀 ✨ 🌌</div>
+    <h1>کهکشان کلمات</h1>
+  </div>
+
+  <div class="neon-box pink name-box">
+    <p>👩‍🚀 اسمت رو بنویس فضانورد کوچولو:</p>
+    <input type="text" id="playerNameInput" placeholder="اسم من..." maxlength="14">
+  </div>
+
+  <button class="start-btn" id="goToWheelBtn" disabled>شروع ماجراجویی 🚀</button>
+
+  <div class="neon-box green footer-box">
+    <p>🌟 گروه آموزشی پایه‌ی دوم دبستان رشد نو 🌟</p>
+  </div>
+</section>
+
+<!-- ===================== SCREEN 2: WHEEL ===================== -->
+<section id="screen2" class="screen">
+  <div class="wheel-title">🎡 بچرخون تا بریم تو بازی! 🎡</div>
+
+  <div class="wheel-wrap">
+    <div class="wheel-pointer">🔻</div>
+    <canvas id="wheelCanvas" width="600" height="600"></canvas>
+    <div class="wheel-hub"></div>
+  </div>
+
+  <button class="spin-btn" id="spinBtn">بچرخون! 🌀</button>
+  <div class="wheel-score" id="wheelResultText"></div>
+  <button class="next-btn" id="goToGameBtn">بریم به ماموریت! 🛸</button>
+
+  <audio id="spinSound" preload="none">
+    <source src="https://uploadkon.ir/uploads/7b9320_26Prize-Wheel-Spin.mp3" type="audio/mpeg">
+  </audio>
+</section>
+
+<!-- ===================== SCREEN 3: GAME ===================== -->
+<section id="screen3" class="screen">
+  <div class="topbar">
+    <div class="score-pill" id="scorePill">امتیاز: 0</div>
+    <div class="progress-pill" id="progressPill">سوال ۱ از ۹</div>
+  </div>
+
+  <div class="neon-box question-box">
+    <p id="questionText">سوال اینجا میاد</p>
+  </div>
+
+  <div class="play-area">
+    <div class="answer-slots" id="answerSlots"></div>
+
+    <div class="ring-stage">
+      <div class="ring-disc"></div>
+      <div class="ring-center-icon">🪐</div>
+      <div class="letters-layer" id="lettersLayer"></div>
+    </div>
+
+    <div class="controls-row">
+      <div class="ctrl-btn undo" id="undoBtn">
+        <span class="icon">↩️</span>
+        <span>پاک کردن</span>
+      </div>
+      <div class="ctrl-btn" id="hintBtn">
+        <span class="icon">💡</span>
+        <span>راهنما (-۲)</span>
+      </div>
+    </div>
+  </div>
+
+
+</section>
+
+<!-- ===================== SCREEN 4: END ===================== -->
+<section id="screen4" class="screen">
+  <div class="neon-box pink end-box">
+    <div class="end-stars">🏆 ⭐ 🏆</div>
+    <h2>آفرین فضانورد قهرمان!</h2>
+    <div class="end-stats">
+      <div class="stat-chip" id="finalScoreChip">امتیاز: 0</div>
+      <div class="stat-chip" id="finalTimeChip">زمان: 00:00</div>
+    </div>
+    <div class="end-msg" id="endMessage"></div>
+    <button class="replay-btn" id="replayBtn">بازی دوباره 🔄</button>
+  </div>
+</section>
+
+<div class="feedback-overlay" id="feedbackOverlay">
+  <div class="feedback-msg" id="feedbackMsg"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- DATA ---------- */
+  var QUESTIONS = [
+    {q:"به افرادی که در یک کلاس درس می‌خوانند چه می‌گویند؟", a:"هم کلاسی"},
+    {q:'به معنی "هم فکری" می‌باشد؟', a:"مشورت"},
+    {q:"به کسی که سواد ندارد چه می‌گویند؟", a:"بی سواد"},
+    {q:"به معنی آلوده؟", a:"کثیف"},
+    {q:'با این حروف کلمه‌ای بسازید که نشانه‌ی "و" در آن صدای "او" بدهد؟', a:"صورت"},
+    {q:"برای خواهش کردن از کسی، در ابتدای جمله از این کلمه استفاده می‌کنیم؟", a:"لطفاً"},
+    {q:'مخالف کلمه‌ی "سالم"؟', a:"بیمار"},
+    {q:"هم‌معنی کلمه‌ی داخل کمانک را بنویس: خرس کوچولو (ناراحت) و بی‌حوصله به‌راه افتاد.", a:"غمگین"},
+    {q:"ما کودکان باید کتاب‌ها و مجله‌های ____ی خودمان را بخوانیم؟", a:"ویژه"}
+  ];
+
+  var WHEEL_NUMBERS = [5,10,15,20,25,30];
+  var WHEEL_COLORS = ["#ff2fd0","#28e3ff","#9b30ff","#39ff8a","#fff84d","#ff8c2f"];
+
+  /* ---------- STATE ---------- */
+  var state = {
+    playerName: "",
+    score: 0,
+    currentQuestionIndex: 0,
+    shuffledQuestions: [],
+    currentAnswer: "",
+    typed: [],
+    letterPool: [],
+    startTime: null,
+    timerInterval: null
+  };
+
+  /* ---------- HELPERS ---------- */
+  function $(id){ return document.getElementById(id); }
+  function showScreen(id){
+    var screens = document.querySelectorAll(".screen");
+    for(var i=0;i<screens.length;i++){ screens[i].classList.remove("active"); }
+    $(id).classList.add("active");
+  }
+  function shuffleArray(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+  function playSound(audioEl){
+    try{
+      audioEl.currentTime = 0;
+      var p = audioEl.play();
+      if(p && p.catch){ p.catch(function(){}); }
+    }catch(e){}
+  }
+
+  /* ---------- WEB AUDIO SYNTH SOUND EFFECTS (no external files = no load delay) ---------- */
+  var audioCtx = null;
+  function getAudioCtx(){
+    if(!audioCtx){
+      try{
+        var AC = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AC();
+      }catch(e){ audioCtx = null; }
+    }
+    return audioCtx;
+  }
+  function playTone(freq, startTime, duration, type, gainPeak){
+    var ac = getAudioCtx();
+    if(!ac) return;
+    var osc = ac.createOscillator();
+    var gain = ac.createGain();
+    osc.type = type || "sine";
+    osc.frequency.setValueAtTime(freq, startTime);
+    gain.gain.setValueAtTime(0.0001, startTime);
+    gain.gain.exponentialRampToValueAtTime(gainPeak || 0.25, startTime + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+    osc.connect(gain);
+    gain.connect(ac.destination);
+    osc.start(startTime);
+    osc.stop(startTime + duration + 0.05);
+  }
+  function playCorrectChime(){
+    var ac = getAudioCtx();
+    if(!ac) return;
+    if(ac.state === "suspended"){ ac.resume(); }
+    var now = ac.currentTime;
+    playTone(523.25, now, 0.16, "triangle", 0.22);
+    playTone(659.25, now+0.13, 0.16, "triangle", 0.22);
+    playTone(783.99, now+0.26, 0.26, "triangle", 0.25);
+  }
+  function playWrongBuzz(){
+    var ac = getAudioCtx();
+    if(!ac) return;
+    if(ac.state === "suspended"){ ac.resume(); }
+    var now = ac.currentTime;
+    playTone(196, now, 0.28, "sawtooth", 0.18);
+    playTone(146.83, now+0.12, 0.3, "sawtooth", 0.16);
+  }
+  function playCheerSparkle(){
+    var ac = getAudioCtx();
+    if(!ac) return;
+    if(ac.state === "suspended"){ ac.resume(); }
+    var now = ac.currentTime;
+    var freqs = [880,988,1175,1319,1568];
+    for(var i=0;i<freqs.length;i++){
+      playTone(freqs[i], now + i*0.06, 0.18, "sine", 0.12);
+    }
+  }
+
+  /* ---------- SCREEN 1: NAME ---------- */
+  var nameInput = $("playerNameInput");
+  var goToWheelBtn = $("goToWheelBtn");
+  nameInput.addEventListener("input", function(){
+    var v = nameInput.value.trim();
+    goToWheelBtn.disabled = (v.length === 0);
+  });
+  goToWheelBtn.addEventListener("click", function(){
+    getAudioCtx(); // unlock audio on first user gesture (required on mobile)
+    state.playerName = nameInput.value.trim() || "فضانورد";
+    showScreen("screen2");
+  });
+
+  /* ---------- SCREEN 2: WHEEL ---------- */
+  var canvas = $("wheelCanvas");
+  var ctx = canvas.getContext("2d");
+  var spinBtn = $("spinBtn");
+  var wheelResultText = $("wheelResultText");
+  var goToGameBtn = $("goToGameBtn");
+  var spinSound = $("spinSound");
+  var currentRotation = 0;
+  var hasSpun = false;
+
+  function drawWheel(){
+    var cx = canvas.width/2, cy = canvas.height/2, r = canvas.width/2 - 6;
+    var sliceAngle = (Math.PI*2)/WHEEL_NUMBERS.length;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(var i=0;i<WHEEL_NUMBERS.length;i++){
+      var startA = i*sliceAngle;
+      var endA = startA + sliceAngle;
+      ctx.beginPath();
+      ctx.moveTo(cx,cy);
+      ctx.arc(cx,cy,r,startA,endA);
+      ctx.closePath();
+      ctx.fillStyle = WHEEL_COLORS[i % WHEEL_COLORS.length];
+      ctx.fill();
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = "rgba(255,255,255,0.85)";
+      ctx.stroke();
+
+      ctx.save();
+      ctx.translate(cx,cy);
+      ctx.rotate(startA + sliceAngle/2);
+      ctx.textAlign = "right";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "#1a0a2e";
+      ctx.font = "900 54px Vazirmatn, Tahoma, sans-serif";
+      ctx.fillText(String(WHEEL_NUMBERS[i]), r-26, 0);
+      ctx.restore();
+    }
+    ctx.beginPath();
+    ctx.arc(cx,cy,r,0,Math.PI*2);
+    ctx.lineWidth = 8;
+    ctx.strokeStyle = "#fff84d";
+    ctx.stroke();
+  }
+  drawWheel();
+
+  spinBtn.addEventListener("click", function(){
+    if(hasSpun) return;
+    hasSpun = true;
+    spinBtn.disabled = true;
+    wheelResultText.textContent = "";
+    playSound(spinSound);
+
+    var sliceAngle = 360/WHEEL_NUMBERS.length;
+    var winningIndex = Math.floor(Math.random()*WHEEL_NUMBERS.length);
+    var winningNumber = WHEEL_NUMBERS[winningIndex];
+
+    // We want the pointer (top, 0deg) to land in the middle of winningIndex slice.
+    // Canvas drew slice i starting at angle i*sliceAngle from 0 (pointing right, going clockwise visually as canvas y-down).
+    // Pointer is fixed at top of element. We'll just compute a rotation that ends with the
+    // slice center aligned to top, accounting for canvas drawing starting at angle 0 = right side.
+    var sliceCenterFromRight = winningIndex*sliceAngle + sliceAngle/2; // degrees from "right" (0deg) clockwise
+    // Convert so that 0deg = top: top is -90deg (or 270deg) from right in standard canvas clockwise terms
+    var targetAngle = 270 - sliceCenterFromRight; // angle needed so slice center sits at top
+    var fullSpins = 5 + Math.floor(Math.random()*3); // 5-7 extra full spins
+    var finalRotation = currentRotation + fullSpins*360 + ((targetAngle - (currentRotation % 360)) + 360) % 360;
+
+    currentRotation = finalRotation;
+    canvas.style.transform = "rotate(" + finalRotation + "deg)";
+
+    setTimeout(function(){
+      try{ spinSound.pause(); }catch(e){}
+      state.score += winningNumber;
+      wheelResultText.textContent = "🎉 " + state.playerName + " جان، " + winningNumber + " امتیاز گرفتی! مجموع: " + state.score;
+      goToGameBtn.style.display = "inline-block";
+    }, 4300);
+  });
+
+  goToGameBtn.addEventListener("click", function(){
+    startGame();
+  });
+
+  /* ---------- SCREEN 3: QUESTIONS ---------- */
+  var scorePill = $("scorePill");
+  var progressPill = $("progressPill");
+  var questionText = $("questionText");
+  var answerSlotsEl = $("answerSlots");
+  var lettersLayer = $("lettersLayer");
+  var hintBtn = $("hintBtn");
+  var undoBtn = $("undoBtn");
+  var feedbackOverlay = $("feedbackOverlay");
+  var feedbackMsg = $("feedbackMsg");
+  var ringStage = document.querySelector(".ring-stage");
+
+  function startGame(){
+    state.score = 0; // base wheel score already added separately before game; keep as starting score
+    // Actually keep wheel score as starting score (per spec: "earns initial points and enters the game")
+    state.score = state.score; // (no-op, score already set from wheel)
+    state.currentQuestionIndex = 0;
+    state.shuffledQuestions = shuffleArray(QUESTIONS);
+    state.startTime = Date.now();
+    if(state.timerInterval) clearInterval(state.timerInterval);
+    showScreen("screen3");
+    loadQuestion();
+  }
+
+  function updateScorePill(){
+    scorePill.textContent = "امتیاز: " + state.score;
+  }
+
+  function loadQuestion(){
+    if(state.currentQuestionIndex >= state.shuffledQuestions.length){
+      finishGame();
+      return;
+    }
+    var item = state.shuffledQuestions[state.currentQuestionIndex];
+    state.currentAnswer = item.a.replace(/\s+/g,""); // remove spaces for letter game, keep display separate
+    state.displayAnswer = item.a;
+    state.typed = [];
+
+    questionText.textContent = item.q;
+    progressPill.textContent = "سوال " + (state.currentQuestionIndex+1) + " از " + state.shuffledQuestions.length;
+    updateScorePill();
+
+    buildSlots();
+    buildLetterRing();
+  }
+
+  function buildSlots(){
+    answerSlotsEl.innerHTML = "";
+    var displayChars = state.displayAnswer.split("");
+    for(var i=0;i<displayChars.length;i++){
+      if(displayChars[i] === " "){
+        var spacer = document.createElement("div");
+        spacer.style.width = "14px";
+        answerSlotsEl.appendChild(spacer);
+        continue;
+      }
+      var slot = document.createElement("div");
+      slot.className = "slot";
+      slot.dataset.idx = i;
+      answerSlotsEl.appendChild(slot);
+    }
+  }
+
+  function refreshSlots(){
+    var slots = answerSlotsEl.querySelectorAll(".slot");
+    var letterSlots = [];
+    var slotsArr = Array.prototype.slice.call(slots);
+    for(var i=0;i<slotsArr.length;i++){ letterSlots.push(slotsArr[i]); }
+    for(var k=0;k<letterSlots.length;k++){
+      if(k < state.typed.length){
+        letterSlots[k].textContent = state.typed[k];
+        letterSlots[k].classList.add("filled");
+      } else {
+        letterSlots[k].textContent = "";
+        letterSlots[k].classList.remove("filled");
+      }
+    }
+  }
+
+  function buildLetterRing(){
+    lettersLayer.innerHTML = "";
+    var letters = state.currentAnswer.split("");
+    var shuffled = shuffleArray(letters.map(function(ch,i){ return {ch:ch, id:i}; }));
+    state.letterPool = shuffled.map(function(o){ return {ch:o.ch, used:false}; });
+
+    var stageSize = ringStage.clientWidth || 300;
+    var radius = stageSize * 0.36;
+    var center = stageSize/2;
+    var n = shuffled.length;
+
+    for(var i=0;i<n;i++){
+      var angle = (i/n)*Math.PI*2 - Math.PI/2;
+      var x = center + radius*Math.cos(angle);
+      var y = center + radius*Math.sin(angle);
+
+      var btn = document.createElement("div");
+      btn.className = "letter-btn";
+      btn.style.left = x + "px";
+      btn.style.top = y + "px";
+      btn.textContent = shuffled[i].ch;
+      btn.dataset.poolIndex = i;
+      btn.addEventListener("click", (function(poolIdx){
+        return function(){ handleLetterClick(poolIdx); };
+      })(i));
+      lettersLayer.appendChild(btn);
+    }
+  }
+
+  function handleLetterClick(poolIdx){
+    var entry = state.letterPool[poolIdx];
+    if(!entry || entry.used) return;
+    entry.used = true;
+    state.typed.push(entry.ch);
+
+    var btn = lettersLayer.querySelector('[data-pool-index="'+poolIdx+'"]');
+    if(btn) btn.classList.add("used");
+
+    refreshSlots();
+
+    var expected = state.currentAnswer;
+    var typedStr = state.typed.join("");
+
+    if(typedStr.length === expected.length){
+      if(typedStr === expected){
+        handleCorrect();
+      } else {
+        handleWrong();
+      }
+    } else {
+      // partial check - if mismatch at this position, treat as wrong immediately
+      if(expected.substring(0, typedStr.length) !== typedStr){
+        handleWrong();
+      }
+    }
+  }
+
+  undoBtn.addEventListener("click", function(){
+    if(state.typed.length === 0) return;
+    state.typed.pop();
+    // re-enable last used letter matching that char (the most recently used one)
+    var usedButtons = lettersLayer.querySelectorAll(".letter-btn.used");
+    if(usedButtons.length > 0){
+      var lastBtn = usedButtons[usedButtons.length-1];
+      lastBtn.classList.remove("used");
+      var idx = lastBtn.dataset.poolIndex;
+      state.letterPool[idx].used = false;
+    }
+    refreshSlots();
+  });
+
+  hintBtn.addEventListener("click", function(){
+    if(state.typed.length >= state.currentAnswer.length) return;
+    state.score -= 2;
+    updateScorePill();
+    var nextIdx = state.typed.length;
+    var neededChar = state.currentAnswer[nextIdx];
+    // find an unused pool letter matching neededChar
+    for(var i=0;i<state.letterPool.length;i++){
+      if(!state.letterPool[i].used && state.letterPool[i].ch === neededChar){
+        handleLetterClick(i);
+        break;
+      }
+    }
+  });
+
+  function showFeedback(type, text){
+    feedbackMsg.className = "feedback-msg " + type;
+    feedbackMsg.textContent = text;
+    feedbackOverlay.style.display = "flex";
+    setTimeout(function(){
+      feedbackOverlay.style.display = "none";
+    }, 900);
+  }
+
+  function spawnConfetti(){
+    var colors = ["#ff2fd0","#28e3ff","#9b30ff","#39ff8a","#fff84d","#ff8c2f"];
+    for(var i=0;i<26;i++){
+      var piece = document.createElement("div");
+      piece.className = "confetti-piece";
+      piece.style.left = Math.random()*100 + "vw";
+      piece.style.background = colors[Math.floor(Math.random()*colors.length)];
+      piece.style.borderRadius = (Math.random()>0.5) ? "50%" : "2px";
+      var duration = 1.4 + Math.random()*1.2;
+      piece.style.animationDuration = duration + "s";
+      document.body.appendChild(piece);
+      (function(p){
+        setTimeout(function(){ p.remove(); }, 3000);
+      })(piece);
+    }
+  }
+
+  function handleCorrect(){
+    state.score += 5;
+    updateScorePill();
+    playCorrectChime();
+    playCheerSparkle();
+    showFeedback("good", "👏 آفرین " + state.playerName + " جان! 🌟");
+    spawnConfetti();
+    setTimeout(function(){
+      state.currentQuestionIndex++;
+      loadQuestion();
+    }, 1000);
+  }
+
+  function handleWrong(){
+    playWrongBuzz();
+    showFeedback("bad", "😅 یه بار دیگه تلاش کن!");
+    var qBox = document.querySelector(".question-box");
+    qBox.classList.add("shake");
+    setTimeout(function(){ qBox.classList.remove("shake"); }, 480);
+
+    setTimeout(function(){
+      // reset typed letters for retry, re-enable all letters
+      state.typed = [];
+      for(var i=0;i<state.letterPool.length;i++){ state.letterPool[i].used = false; }
+      var allBtns = lettersLayer.querySelectorAll(".letter-btn");
+      for(var j=0;j<allBtns.length;j++){ allBtns[j].classList.remove("used"); }
+      refreshSlots();
+    }, 700);
+  }
+
+  /* ---------- SCREEN 4: END ---------- */
+  var finalScoreChip = $("finalScoreChip");
+  var finalTimeChip = $("finalTimeChip");
+  var endMessage = $("endMessage");
+  var replayBtn = $("replayBtn");
+
+  function finishGame(){
+    var elapsedMs = Date.now() - state.startTime;
+    var totalSeconds = Math.floor(elapsedMs/1000);
+    var mm = String(Math.floor(totalSeconds/60)).padStart(2,"0");
+    var ss = String(totalSeconds%60).padStart(2,"0");
+
+    finalScoreChip.textContent = "امتیاز: " + state.score;
+    finalTimeChip.textContent = "زمان: " + mm + ":" + ss;
+
+    var messages = [
+      "تو یک ستاره‌ی واقعی کهکشان کلمات هستی! ادامه بده و همیشه بدرخش! ✨",
+      "چه فضانورد باهوش و تلاشگری هستی! افتخار کهکشانمونی! 🚀",
+      "با همین انرژی و پشتکار، تا قله‌های دوردست علم پرواز کن! 🌠"
+    ];
+    var randomMsg = messages[Math.floor(Math.random()*messages.length)];
+
+    endMessage.innerHTML = "آفرین <span class='pname'>" + escapeHtml(state.playerName) + "</span> جان! " + randomMsg;
+
+    spawnConfetti();
+    playCheerSparkle();
+    showScreen("screen4");
+  }
+
+  function escapeHtml(str){
+    var div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  replayBtn.addEventListener("click", function(){
+    state.score = 0;
+    state.currentQuestionIndex = 0;
+    hasSpun = false;
+    spinBtn.disabled = false;
+    wheelResultText.textContent = "";
+    goToGameBtn.style.display = "none";
+    currentRotation = 0;
+    canvas.style.transition = "none";
+    canvas.style.transform = "rotate(0deg)";
+    setTimeout(function(){ canvas.style.transition = ""; }, 50);
+    showScreen("screen2");
+  });
+
+  /* rebuild letter ring positions on resize to keep layout consistent */
+  window.addEventListener("resize", function(){
+    if($("screen3").classList.contains("active") && lettersLayer.children.length){
+      // reposition without reshuffling: rebuild from current letterPool order
+      var stageSize = ringStage.clientWidth || 300;
+      var radius = stageSize * 0.36;
+      var center = stageSize/2;
+      var n = state.letterPool.length;
+      var btns = lettersLayer.querySelectorAll(".letter-btn");
+      for(var i=0;i<btns.length;i++){
+        var angle = (i/n)*Math.PI*2 - Math.PI/2;
+        var x = center + radius*Math.cos(angle);
+        var y = center + radius*Math.sin(angle);
+        btns[i].style.left = x + "px";
+        btns[i].style.top = y + "px";
+      }
+    }
+  });
+
+})();
+</script>
+</body>
+</html>
